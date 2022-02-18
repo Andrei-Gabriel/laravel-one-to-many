@@ -144,6 +144,7 @@ class PostController extends Controller
   
         $post->save();
 
+        // Redirect al post modificato
         return redirect()->route("posts.show", $post->id);
     }
 

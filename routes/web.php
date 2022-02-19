@@ -34,6 +34,7 @@ Route::prefix("admin")->namespace("admin")->middleware("auth")->group(function()
     // Qui aggiungiamo le rotte di una risorsa a cui devone essere applicate le tre regole (riga 33)
     Route::get('/home', 'HomeController@index')->name('home');
     Route::resource("posts", "PostController");
+    Route::resource("categories", "CategoryController");
 });
 
 // php artisan route:list

@@ -14,9 +14,14 @@
                             @else
                                 <span class="badge badge-warning py-1 px-2">Draft</span>
                             @endif
+                            @if ($post->category)
+                                <span class="badge badge-primary py-1 px-2">{{$post->category->name}}</span>
+                            @else
+                                <span class="badge badge-warning py-1 px-2">Nessuna categoria assegnata</span>
+                            @endif
                         </div>
                         {{$post->content}}
-                        <div class="container d-flex flex-row mt-3">
+                        <div class="container p-0 d-flex flex-row mt-3">
                             <a href="{{route("posts.edit", $post->id)}}"><button type="button" class="btn btn-warning mr-3">Modifica</button></a>
                             <form action="{{route("posts.destroy", $post->id)}}" method="POST">
                                 @csrf

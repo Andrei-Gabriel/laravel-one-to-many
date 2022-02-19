@@ -64,6 +64,7 @@ class PostController extends Controller
         $newPost->title = $data["title"];
         $newPost->content = $data["content"];
         $newPost->published = isset($data["published"]) ? 1 : 0;
+        $newPost->category_id = $data["category_id"];
 
         $slug = Str::of($newPost->title)->slug("-");
         $count = 1;

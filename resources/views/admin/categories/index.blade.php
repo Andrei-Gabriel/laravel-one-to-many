@@ -22,7 +22,7 @@
                     <tr>
                         <th scope="row">{{$category->id}}</th>
                         <td>{{$category->name}}</td>
-                        <td>{{$category->slug}}</td>
+                        <td>{{$category->slugCat}}</td>
                         <td>
                             <a href="{{route("categories.show", $category->id)}}"><button type="button" class="btn btn-primary">Più info</button></a>
                         </td>

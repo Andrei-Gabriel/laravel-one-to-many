@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Post;
+use App\Category;
 use Illuminate\Support\Str;
 
 class PostController extends Controller
@@ -14,6 +15,7 @@ class PostController extends Controller
         "title" => "required|string|max:100",
         "content" => "required",
         "published" => "sometimes|accepted",
+        "category_id" => "nullable|exists:categories,id",
     ];
     /**
      * Display a listing of the resource.
@@ -34,7 +36,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view("admin.posts.create");
+        $categories = Category::all();
+        return view("admin.posts.create", compact("categories"));
     }
 
     /**

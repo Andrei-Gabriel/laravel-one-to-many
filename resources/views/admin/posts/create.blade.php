@@ -4,7 +4,7 @@
     <div class="container">
         <h2 class="mb-4">Nuovo post</h2>
 
-        <form action="{{route("posts.store")}}" method="POST">
+        <form action="{{route("posts.store")}}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label for="title">Titolo</label>
@@ -38,6 +38,15 @@
                 @error("published")
                     <div class="alert alert-danger">{{$message}}</div>
                 @enderror
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="image">Upload</span>
+                </div>
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="image" name="image">
+                    <label class="custom-file-label" for="image">Choose file</label>
+                </div>
             </div>
             <button type="submit" class="btn btn-primary">Crea</button>
         </form>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Post;
 use App\Category;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class PostController extends Controller
@@ -16,6 +17,8 @@ class PostController extends Controller
         "content" => "required",
         "published" => "sometimes|accepted",
         "category_id" => "nullable|exists:categories,id",
+        // Unable to guess the MIME type as no guessers are available (have you enabled the php_fileinfo extension?).
+        // "image" => "nullable|image|mime:jpeg,jpg,bmp,png|max:2048"
     ];
     /**
      * Display a listing of the resource.
@@ -76,6 +79,12 @@ class PostController extends Controller
 
         $newPost->slug = $slug;
         $newPost->save();
+
+        // Se presente, salvo img
+        if (isset($data["image"])) {
+            $path_image = Storage::put("uploads", $data["image"]);
+            $newPost->image = $path_image;
+        }
 
         // Redirect al post appena creato
         return redirect()->route("posts.show", $newPost->id);

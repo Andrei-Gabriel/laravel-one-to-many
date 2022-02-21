@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Category;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
@@ -38,7 +39,20 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validazione
+        $request->validate([
+            "name" => "required|string|max:255|unique:categories,name"
+        ]);
+        $data = $request->all();
+
+        // Creo la categoria
+        $newCategory = new Category();
+        $newCategory->name = $data["name"];
+        $newCategory->slugCat = Str::of($newCategory->name)->slug("-");
+        $newCategory->save();
+
+        // Redirect alla categoria creata
+        return redirect()->route("categories.show", $newCategory->id);
     }
 
     /**
